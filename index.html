@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verse of the day CLI - Daily Bible Verses in Your Terminal</title>
+    <meta name="description" content="A simple CLI tool that displays daily Bible verses in your terminal. Get inspired when you open the first terminal session of the day.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Cinzel', 'serif'],
+                        'scripture': ['Crimson Text', 'serif'],
+                    },
+                    colors: {
+                        papyrus: {
+                            50: '#fefcf4',
+                            100: '#fdf7e8',
+                            200: '#f9edc5',
+                            300: '#f3dfa2',
+                            400: '#e9c46a',
+                            500: '#d4a574',
+                            600: '#b8935c',
+                            700: '#987248',
+                            800: '#7c5a3a',
+                            900: '#654930',
+                        },
+                        scripture: {
+                            50: '#faf8f5',
+                            100: '#f4efea',
+                            200: '#e6d8ca',
+                            300: '#d1b8a3',
+                            400: '#b8926f',
+                            500: '#9d7654',
+                            600: '#7d5e41',
+                            700: '#654a35',
+                            800: '#523d2b',
+                            900: '#3d2e20',
+                        }
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(145deg, #fdf7e8 0%, #f9edc5 50%, #f3dfa2 100%);
+            background-attachment: fixed;
+        }
+        .papyrus-texture {
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(212, 165, 116, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 25% 75%, rgba(152, 114, 72, 0.05) 2px, transparent 2px),
+                radial-gradient(circle at 75% 25%, rgba(188, 147, 92, 0.08) 1.5px, transparent 1.5px);
+        }
+        .scripture-shadow {
+            text-shadow: 1px 1px 3px rgba(101, 74, 53, 0.3);
+        }
+        .parchment-border {
+            border: 3px solid #b8935c;
+            background: linear-gradient(135deg, #fefcf4, #fdf7e8);
+            box-shadow:
+                inset 0 0 20px rgba(212, 165, 116, 0.2),
+                0 4px 15px rgba(101, 74, 53, 0.15);
+        }
+    </style>
+</head>
+<body class="papyrus-texture min-h-screen font-scripture">
+    <!-- Header -->
+    <header class="parchment-border shadow-lg border-b border-scripture-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-scripture-700 rounded-full flex items-center justify-center border-2 border-scripture-600">
+                        <span class="text-papyrus-100 font-serif font-bold text-xl">✝</span>
+                    </div>
+                    <h1 class="text-3xl font-serif font-bold text-scripture-800 scripture-shadow">Verse Of The Day CLI</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-scripture-600 hover:text-scripture-800 font-scripture transition-colors scripture-shadow">Features</a>
+                    <a href="#installation" class="text-scripture-600 hover:text-scripture-800 font-scripture transition-colors scripture-shadow">Installation</a>
+                    <a href="#usage" class="text-scripture-600 hover:text-scripture-800 font-scripture transition-colors scripture-shadow">Usage</a>
+                    <a href="#commands" class="text-scripture-600 hover:text-scripture-800 font-scripture transition-colors scripture-shadow">Commands</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-5xl md:text-6xl font-serif font-bold text-scripture-900 mb-6 scripture-shadow">
+                Daily <span class="text-scripture-700">Bible Verses</span><br>
+                <span class="text-scripture-600 italic">in Your Terminal</span>
+            </h2>
+            <p class="text-xl text-scripture-700 mb-8 max-w-3xl mx-auto leading-relaxed font-scripture italic">
+                "In the beginning was the Word..." Start each day with biblical inspiration. This CLI tool brings you daily Bible verses directly to your terminal,
+                with wisdom cached and seamlessly integrated into your daily practice.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <div class="parchment-border text-scripture-800 px-8 py-6 rounded-lg font-mono text-left shadow-lg">
+                    <div class="text-sm opacity-80">$ npm install -g verse-of-the-day-cli</div>
+                    <div class="text-sm opacity-80">$ verse</div>
+                </div>
+                <a href="#installation" class="bg-scripture-700 text-papyrus-50 px-10 py-4 rounded-lg font-serif font-semibold hover:bg-scripture-800 transition-colors shadow-lg scripture-shadow">
+                    Begin Your Journey
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 parchment-border mx-4 md:mx-8 rounded-lg my-8">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-serif font-bold text-center text-scripture-900 mb-12 scripture-shadow">Behold the Sacred Word</h3>
+            <div class="bg-scripture-900 rounded-lg p-8 font-mono text-sm overflow-x-auto shadow-2xl border-4 border-scripture-700">
+                <div class="text-papyrus-400 mb-3">$ verse</div>
+                <div class="text-papyrus-300 mb-3">Seeking divine inspiration...</div>
+                <div class="text-papyrus-200 mb-3">Today's sacred verse:</div>
+                <div class="text-papyrus-100 font-bold mb-2 text-lg font-serif">Romans 5:3-4</div>
+                <div class="text-papyrus-50 mb-4 leading-relaxed font-scripture italic text-base">"Not only so, but we also glory in our sufferings, because we know that suffering produces perseverance; perseverance, character; and character, hope."</div>
+                <div class="text-papyrus-400 text-xs opacity-70">Sacred text courtesy: BibleGateway</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl font-serif font-bold text-center text-scripture-900 mb-16 scripture-shadow">Humble Features</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-scripture-200 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-scripture-400 shadow-lg">
+                        <svg class="w-10 h-10 text-scripture-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-4 scripture-shadow">Sacred Preservation</h4>
+                    <p class="text-scripture-700 font-scripture leading-relaxed">Divine wisdom is carefully preserved, ensuring you receive today's verse only once, while keeping the sacred word fresh each dawn.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-papyrus-200 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-papyrus-500 shadow-lg">
+                        <svg class="w-10 h-10 text-papyrus-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-4 scripture-shadow">Seamless Unity</h4>
+                    <p class="text-scripture-700 font-scripture leading-relaxed">The Word becomes one with your workspace, greeting you with wisdom across bash, zsh, fish, and PowerShell terminals.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-scripture-300 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-scripture-600 shadow-lg">
+                        <svg class="w-10 h-10 text-scripture-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-4 scripture-shadow">Faithful & Swift</h4>
+                    <p class="text-scripture-700 font-scripture leading-relaxed">Like a faithful servant, multiple sacred sources ensure the Word reaches you always, even when earthly networks falter.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="py-20 px-4 sm:px-6 lg:px-8 parchment-border mx-4 md:mx-8 rounded-lg my-8">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-4xl font-serif font-bold text-center text-scripture-900 mb-12 scripture-shadow">Installation</h3>
+
+            <div class="space-y-8">
+                <div class="parchment-border rounded-lg p-8 shadow-md">
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-4 scripture-shadow">1. Receive the Gift</h4>
+                    <div class="bg-scripture-900 text-papyrus-300 px-6 py-4 rounded-lg font-mono shadow-inner border-2 border-scripture-700">
+                        npm install -g verse-of-the-day-cli
+                    </div>
+                </div>
+
+                <div class="parchment-border rounded-lg p-8 shadow-md">
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-4 scripture-shadow">2. Test the Divine Connection</h4>
+                    <div class="bg-scripture-900 text-papyrus-300 px-6 py-4 rounded-lg font-mono mb-4 shadow-inner border-2 border-scripture-700">
+                        verse --help
+                    </div>
+                    <p class="text-scripture-700 font-scripture italic">This shall reveal the commands and their purposes.</p>
+                </div>
+
+                <div class="parchment-border rounded-lg p-8 shadow-md">
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-4 scripture-shadow">3. Consecrate Your Workspace (Optional)</h4>
+                    <div class="bg-scripture-900 text-papyrus-300 px-6 py-4 rounded-lg font-mono mb-4 shadow-inner border-2 border-scripture-700">
+                        verse init
+                    </div>
+                    <p class="text-scripture-700 font-scripture italic">This ritual shall inscribe the Word into your shell's very essence, greeting you with wisdom each new dawn.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 p-8 parchment-border rounded-lg shadow-lg border-4 border-scripture-400">
+                <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-4 scripture-shadow">Requirements</h4>
+                <ul class="text-scripture-700 space-y-2 font-scripture">
+                    <li class="flex items-center"><span class="text-scripture-600 mr-2">✠</span> Node.js 18 or higher (the foundation)</li>
+                    <li class="flex items-center"><span class="text-scripture-600 mr-2">✠</span> npm (the vessel for packages)</li>
+                    <li class="flex items-center"><span class="text-scripture-600 mr-2">✠</span> Internet connection (to receive the Word)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Section -->
+    <section id="usage" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-4xl font-serif font-bold text-center text-scripture-900 mb-12 scripture-shadow">Usage</h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="parchment-border rounded-lg shadow-md p-8">
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-6 scripture-shadow">Essential Commands</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="bg-scripture-900 text-papyrus-300 px-4 py-3 rounded-lg font-mono text-sm mb-3 border-2 border-scripture-700">verse</div>
+                            <p class="text-scripture-700 font-scripture italic">Reveal today's sacred verse (preserved if already received)</p>
+                        </div>
+                        <div>
+                            <div class="bg-scripture-900 text-papyrus-300 px-4 py-3 rounded-lg font-mono text-sm mb-3 border-2 border-scripture-700">verse --force</div>
+                            <p class="text-scripture-700 font-scripture italic">Seek fresh wisdom, transcending earthly cache</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parchment-border rounded-lg shadow-md p-8">
+                    <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-6 scripture-shadow">More Blessings</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="bg-scripture-900 text-papyrus-300 px-4 py-3 rounded-lg font-mono text-sm mb-3 border-2 border-scripture-700">verse --copy</div>
+                            <p class="text-scripture-700 font-scripture italic">Inscribe the sacred word upon your scroll (clipboard)</p>
+                        </div>
+                        <div>
+                            <div class="bg-scripture-900 text-papyrus-300 px-4 py-3 rounded-lg font-mono text-sm mb-3 border-2 border-scripture-700">verse show -c</div>
+                            <p class="text-scripture-700 font-scripture italic">Reveal preserved wisdom and inscribe it upon your scroll</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 parchment-border rounded-lg shadow-lg p-8">
+                <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-6 scripture-shadow">Mechanics</h4>
+                <div class="space-y-4 text-scripture-700 font-scripture">
+                    <p class="leading-relaxed italic">This vessel draws daily Scripture from hallowed sources, preserving wisdom locally to honor the divine word without excess. Each dawn brings fresh revelation, as the cache is blessed anew.</p>
+                    <p class="leading-relaxed">The tool seeks wisdom through multiple channels:</p>
+                    <ul class="list-none space-y-2 ml-4">
+                        <li class="flex items-start"><span class="text-scripture-600 mr-3">✠</span><strong class="font-serif">Primary Source:</strong>&nbsp; Bible Gateway's RSS (NIV translation)</li>
+                        <li class="flex items-start"><span class="text-scripture-600 mr-3">✠</span><strong class="font-serif">Secondary Source:</strong>&nbsp; OurManna's daily verses</li>
+                    </ul>
+                    <p class="leading-relaxed">Sacred verses rest within <code class="bg-scripture-200 text-scripture-800 px-3 py-1 rounded font-mono border border-scripture-400">~/.config/verse-cli/cache.json</code> and are renewed with each passing day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Reference -->
+    <section id="commands" class="py-20 px-4 sm:px-6 lg:px-8 parchment-border mx-4 md:mx-8 rounded-lg my-8">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-4xl font-serif font-bold text-center text-scripture-900 mb-12 scripture-shadow">Package Commandments</h3>
+
+            <div class="space-y-6">
+                <div class="parchment-border rounded-lg overflow-hidden shadow-lg">
+                    <div class="bg-scripture-100 px-8 py-6 border-b border-scripture-300">
+                        <h4 class="text-2xl font-serif font-semibold text-scripture-800 scripture-shadow">verse [options]</h4>
+                        <p class="text-scripture-700 mt-2 font-scripture italic">The primary invocation - reveals today's sacred verse</p>
+                    </div>
+                    <div class="px-8 py-6">
+                        <h5 class="font-serif font-semibold text-scripture-800 mb-4 text-lg scripture-shadow">Sacred Parameters:</h5>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start mb-3">
+                                <code class="bg-scripture-200 text-scripture-800 px-3 py-2 rounded-lg mr-4 font-mono border border-scripture-400">-f, --force</code>
+                                <span class="text-scripture-700 font-scripture italic leading-relaxed">Seek fresh wisdom even when today's verse is preserved</span>
+                            </div>
+                            <div class="flex items-start mb-3">
+                                <code class="bg-scripture-200 text-scripture-800 px-3 py-2 rounded-lg mr-4 font-mono border border-scripture-400">-c, --copy</code>
+                                <span class="text-scripture-700 font-scripture italic leading-relaxed">Inscribe verse upon your scroll (clipboard)</span>
+                            </div>
+                            <div class="flex items-start mb-3">
+                                <code class="bg-scripture-200 text-scripture-800 px-3 py-2 rounded-lg mr-4 font-mono border border-scripture-400">-h, --help</code>
+                                <span class="text-scripture-700 font-scripture italic leading-relaxed">Reveal sacred guidance and instruction</span>
+                            </div>
+                            <div class="flex items-start mb-3">
+                                <code class="bg-scripture-200 text-scripture-800 px-3 py-2 rounded-lg mr-4 font-mono border border-scripture-400">-V, --version</code>
+                                <span class="text-scripture-700 font-scripture italic leading-relaxed">Display the sacred version inscription</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parchment-border rounded-lg overflow-hidden shadow-lg">
+                    <div class="bg-scripture-100 px-8 py-6 border-b border-scripture-300">
+                        <h4 class="text-2xl font-serif font-semibold text-scripture-800 scripture-shadow">verse show [options]</h4>
+                        <p class="text-scripture-700 mt-2 font-scripture italic">Sacred alias with explicit revelation semantics</p>
+                    </div>
+                    <div class="px-8 py-6">
+                        <h5 class="font-serif font-semibold text-scripture-800 mb-4 text-lg scripture-shadow">Sacred Parameters:</h5>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start mb-3">
+                                <code class="bg-scripture-200 text-scripture-800 px-3 py-2 rounded-lg mr-4 font-mono border border-scripture-400">-f, --force</code>
+                                <span class="text-scripture-700 font-scripture italic leading-relaxed">Seek fresh wisdom even when today's verse is preserved</span>
+                            </div>
+                            <div class="flex items-start mb-3">
+                                <code class="bg-scripture-200 text-scripture-800 px-3 py-2 rounded-lg mr-4 font-mono border border-scripture-400">-c, --copy</code>
+                                <span class="text-scripture-700 font-scripture italic leading-relaxed">Inscribe verse upon your scroll (clipboard)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parchment-border rounded-lg overflow-hidden shadow-lg">
+                    <div class="bg-scripture-100 px-8 py-6 border-b border-scripture-300">
+                        <h4 class="text-2xl font-serif font-semibold text-scripture-800 scripture-shadow">verse init</h4>
+                        <p class="text-scripture-700 mt-2 font-scripture italic">Consecrate your shell with automatic daily verses</p>
+                    </div>
+                    <div class="px-8 py-6">
+                        <p class="text-scripture-700 font-scripture leading-relaxed">
+                            This sacred ritual inscribes divine snippets into your shell's essence (~/.bashrc, ~/.zshrc, etc.), blessing each new terminal session with wisdom. Supports the sacred shells: bash, zsh, fish, and PowerShell.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 parchment-border rounded-lg p-8 shadow-lg border-4 border-scripture-400">
+                <h4 class="text-2xl font-serif font-semibold text-scripture-800 mb-6 scripture-shadow">Examples</h4>
+                <div class="space-y-3 font-mono bg-scripture-900 p-6 rounded-lg border-2 border-scripture-700">
+                    <div class="text-papyrus-300">verse                    <span class="text-papyrus-500 font-scripture italic"># Reveal today's verse</span></div>
+                    <div class="text-papyrus-300">verse --force            <span class="text-papyrus-500 font-scripture italic"># Seek fresh divine wisdom</span></div>
+                    <div class="text-papyrus-300">verse show -c            <span class="text-papyrus-500 font-scripture italic"># Reveal and inscribe upon scroll</span></div>
+                    <div class="text-papyrus-300">verse init               <span class="text-papyrus-500 font-scripture italic"># Consecrate shell with verses</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sacred Offerings -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 parchment-border mx-4 md:mx-8 rounded-lg my-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="w-20 h-20 bg-scripture-200 rounded-full flex items-center justify-center mx-auto mb-8 border-4 border-scripture-400 shadow-lg">
+                <svg class="w-10 h-10 text-scripture-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-4xl font-serif font-bold text-scripture-900 mb-6 scripture-shadow">
+                Does this tool bless your journey?
+            </h3>
+            <p class="text-xl text-scripture-700 mb-8 max-w-2xl mx-auto font-scripture italic leading-relaxed">
+                Consider offering a humble tribute to support the continuation of this work.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <script src="https://patriciosalazar.kit.com/commerce.js" async defer></script>
+                <a class="convertkit-button bg-scripture-700 text-papyrus-50 px-10 py-4 rounded-lg font-serif font-semibold hover:bg-scripture-800 transition-colors shadow-lg hover:shadow-xl scripture-shadow" href="https://patriciosalazar.kit.com/products/buy-me-a-coffee" data-commerce target="_blank">
+                    ☕ Offer Sacred Coffee
+                </a>
+                <span class="text-scripture-600 font-scripture italic">Every offering nourishes this work!</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-scripture-900 text-papyrus-100 py-12 px-4 sm:px-6 lg:px-8 border-t-4 border-scripture-700">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-scripture-700 rounded-full flex items-center justify-center border-2 border-scripture-600">
+                            <span class="text-papyrus-100 font-serif font-bold text-xl">✠</span>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold scripture-shadow">Verse Of The Day CLI</h3>
+                    </div>
+                    <p class="text-papyrus-300 font-scripture italic">Bible verses delivered directly to your terminal sanctuary.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-serif font-semibold mb-6 scripture-shadow">Paths</h4>
+                    <ul class="space-y-3 text-papyrus-300 font-scripture">
+                        <li><a href="#installation" class="w-fit hover:text-papyrus-100 transition-colors flex items-center"><span class="text-scripture-400 mr-2">✠</span>Installation</a></li>
+                        <li><a href="#usage" class="w-fit hover:text-papyrus-100 transition-colors flex items-center"><span class="text-scripture-400 mr-2">✠</span>Usage</a></li>
+                        <li><a href="#commands" class="w-fit hover:text-papyrus-100 transition-colors flex items-center"><span class="text-scripture-400 mr-2">✠</span>Commandments</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-serif font-semibold mb-6 scripture-shadow">Archives</h4>
+                    <ul class="space-y-3 text-papyrus-300 font-scripture">
+                        <li><a href="https://www.npmjs.com/package/verse-of-the-day-cli" class="w-fit hover:text-papyrus-100 transition-colors flex items-center"><span class="text-scripture-400 mr-2">✠</span>npm Package</a></li>
+                        <li><a href="https://github.com/patriciosebastian/verse-cli" class="w-fit hover:text-papyrus-100 transition-colors flex items-center"><span class="text-scripture-400 mr-2">✠</span>GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-scripture-700 mt-8 pt-8 text-center text-papyrus-400">
+                <p class="font-scripture">&copy; Verse Of The Day CLI - By <a href="https://patriciosalazar.dev/?utm_source=verse-of-the-day-cli" target="_blank" class="text-scripture-400 hover:text-papyrus-100 font-serif scripture-shadow underline">Patricio Salazar</a> | Blessed Open Source</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
